@@ -20,6 +20,13 @@
 		}
 	],
 	"license": "MIT",
+	"overrides": {
+		"on-headers": "^1.1.0",
+		"qs": "^6.14.0",
+		"express": {
+			"path-to-regexp": "^1.9.0"
+		}
+	},
 	"dependencies": {
 		"dotenv": "^8.2.0",
 		"express": "^4.21.2",
