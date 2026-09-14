@@ -7,7 +7,7 @@
 		"start": "node server.js",
 		"dev": "nodemon index",
 		"watch": "nodemon --ignore public",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "playwright test"
 	},
 	"contributors": [
 		{
@@ -35,6 +35,8 @@
 		"pug": "^3.0.2"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.52.0",
+		"@types/node": "^26.5.1",
 		"nodemon": "^3.1.7"
 	}
 }
