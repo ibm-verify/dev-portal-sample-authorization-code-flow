@@ -18,6 +18,16 @@ jobs:
       - name: Build Docker image
         run: docker build -t auth-code-app .
 
+      - name: Export image as tar
+        run: docker save auth-code-app -o /tmp/auth-code-app.tar
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: docker-image
+          path: /tmp/auth-code-app.tar
+          retention-days: 1
+
       - name: Start container
         run: |
           docker run -d --name auth-code-app \
@@ -71,8 +81,14 @@ jobs:
       - name: Install Playwright + Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Build Docker image
-        run: docker build -t auth-code-app .
+      - name: Download image artifact
+        uses: actions/download-artifact@v4.3.0
+        with:
+          name: docker-image
+          path: /tmp
+
+      - name: Load Docker image
+        run: docker load -i /tmp/auth-code-app.tar
 
       - name: Start container
         run: |
@@ -102,9 +118,10 @@ jobs:
       - name: Run Playwright E2E tests
         env:
           APP_URL: "http://localhost:3000"
+          TENANT_URL: ${{ secrets.TENANT_URL }}
           TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-        run: npm test
+        run: npm run test:e2e
 
       - name: Upload Playwright artifacts on failure
         if: failure()

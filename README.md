@@ -53,7 +53,7 @@ docker run -d --name auth-code-e2e -p 3000:3000 --env-file .env auth-code-app
 
 3. Run the Playwright tests:
 ```bash
-APP_URL=http://localhost:3000 TEST_USERNAME=<username> TEST_PASSWORD=<password> npx playwright test
+APP_URL=http://localhost:3000 TEST_USERNAME=<username> TEST_PASSWORD=<password> npm run test:e2e
 ```
 
 4. Cleanup:

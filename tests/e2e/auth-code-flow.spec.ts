@@ -26,6 +26,21 @@ test.beforeAll(() => {
   }
 });
 
+test.beforeEach(async ({ page }) => {
+  // Clear IBM Verify SSO session before each test so the login form is always shown.
+  // The app logout only destroys the local Express session; hitting the tenant's
+  // logout endpoint clears the server-side SSO cookie on the IdP domain.
+  const tenantUrl = process.env.TENANT_URL?.replace(/\/$/, "") ?? "";
+  if (tenantUrl) {
+    await page.goto(`${tenantUrl}/idaas/mtfim/sps/idaas/logout`, {
+      waitUntil: "domcontentloaded",
+      timeout: 10_000,
+    }).catch(() => {
+      // Non-fatal — if the logout endpoint is unreachable, proceed anyway
+    });
+  }
+});
+
 // ── Authorization Code Flow ───────────────────────────────────────────────────
 
 test("Authorization Code Flow — full round-trip", async ({ page }) => {
@@ -33,11 +48,12 @@ test("Authorization Code Flow — full round-trip", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("link", { name: /log in/i })).toBeVisible();
 
-  // 2. Navigate to IBM Verify login — wait for full navigation away from localhost
-  await Promise.all([
-    page.waitForNavigation({ waitUntil: "networkidle", timeout: 30_000 }),
-    page.getByRole("link", { name: /log in/i }).click(),
-  ]);
+  // 2. Click Login and wait for redirect to IBM Verify tenant
+  await page.getByRole("link", { name: /log in/i }).click();
+  await page.waitForURL((url) => !url.origin.includes("localhost:3000"), {
+    timeout: 30_000,
+    waitUntil: "domcontentloaded",
+  });
 
   // 3. IBM Verify login form — inputs have placeholder text, not associated <label> elements
   await page.getByPlaceholder(/user name/i).fill(username);
