@@ -1,7 +1,7 @@
 # Dev portal sample app for Authorization code flow.
 
 This sample shows how to use the openid-client library with Node.js to:
-- Authenticate a registered user via IBM Security Verify
+- Authenticate a registered user via IBM Verify
 - Successfully make an API request to `userinfo` endpoint to return the authenticated users details.
 
 ![screenshot](screenshot.png)
@@ -12,7 +12,7 @@ This sample shows how to use the openid-client library with Node.js to:
 2. From the CLI enter `npm install`
 3. After successfully intalling node_modules, from the CLI start the sample application by running `npm run start`
 4. navigate to `http://localhost:3000` in your browser and follow the on screen prompts to authenticate your app using the
-Authorization code flow with IBM Security Verify.
+Authorization code flow with IBM Verify.
 
 ## CI Pipeline
 

@@ -1,7 +1,7 @@
 # Exemple d'application du portail de développement pour le flux de code d'autorisation.
 
 Cet exemple montre comment utiliser la bibliothèque openid-client avec Node.js pour :
-- Authentifier un utilisateur enregistré via IBM Security Verify
+- Authentifier un utilisateur enregistré via IBM Verify
 - Effectuer avec succès une requête API vers le point de terminaison `userinfo` pour renvoyer les détails de l'utilisateur authentifié.
 
 ![capture d'écran](screenshot.png)
@@ -11,8 +11,8 @@ Cet exemple montre comment utiliser la bibliothèque openid-client avec Node.js 
 1. Créez un fichier `.env` à l'aide de l'extrait généré par le portail Developer. Vous pouvez vous référer au fichier `.env.example` pour connaître les variables d'environnement nécessaires à l'exécution de cet exemple d'application.
 2. Dans l'interface de gestion, entrez `npm install`
 3. Après avoir installé node_modules avec succès, démarrez l'application d'exemple à partir de l'interface de gestion en exécutant la commande suivante `npm run start`
-4. naviguez vers `http://localhost:3000` dans votre navigateur et suivez les invites à l'écran pour authentifier votre application à l'aide du flux de code d'autorisation avec IBM Security Verify
-   Flux de codes d'autorisation avec IBM Security Verify.
+4. naviguez vers `http://localhost:3000` dans votre navigateur et suivez les invites à l'écran pour authentifier votre application à l'aide du flux de code d'autorisation avec IBM Verify
+   Flux de codes d'autorisation avec IBM Verify.
 
 ## Traitement des incidents
 - L'ITC affiche `npm ERR! code E401` alors que l'on essaie d'exécuter `npm install`. Supprimez le fichier package-lock.json et relancez `npm install`.
