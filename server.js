@@ -28,9 +28,10 @@ const app = express();
 
 // Init session
 app.use(session({
-	secret: 'my-secret',
+	secret: process.env.SESSION_SECRET,
 	resave: true,
-	saveUninitialized: false
+	saveUninitialized: false,
+	cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
 
 //middleware
