@@ -7,7 +7,8 @@
 		"start": "node server.js",
 		"dev": "nodemon index",
 		"watch": "nodemon --ignore public",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test:e2e": "playwright test",
+		"test": "echo \"No unit tests — run npm run test:e2e for E2E tests\""
 	},
 	"contributors": [
 		{
@@ -35,6 +36,8 @@
 		"pug": "^3.0.2"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.52.0",
+		"@types/node": "^26.5.1",
 		"nodemon": "^3.1.7"
 	}
 }

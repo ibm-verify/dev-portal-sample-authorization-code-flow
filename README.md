@@ -14,6 +14,55 @@ This sample shows how to use the openid-client library with Node.js to:
 4. navigate to `http://localhost:3000` in your browser and follow the on screen prompts to authenticate your app using the
 Authorization code flow with IBM Security Verify.
 
+## CI Pipeline
+
+Every push to any branch automatically runs two sequential checks:
+
+| Job | What it does |
+|---|---|
+| **Smoke test** | Builds the Docker image, starts the container, and verifies the app responds on port 3000 |
+| **E2E test** | Runs only if the smoke test passes. Uses Playwright to execute the full Authorization Code auth flow against the IBM Verify dev tenant — login, verify all user claims are returned, logout |
+
+If the smoke test fails, the E2E job is skipped. If either job fails, the workflow is marked as failed on the branch.
+
+### Required GitHub Actions secrets
+
+Add these in **Settings → Secrets and variables → Actions**:
+
+| Secret | Description |
+|---|---|
+| `TENANT_URL` | IBM Verify tenant base URL |
+| `CLIENT_ID` | App registration client ID |
+| `CLIENT_SECRET` | App registration client secret |
+| `TEST_USERNAME` | IBM Verify username used by Playwright |
+| `TEST_PASSWORD` | IBM Verify password used by Playwright |
+
+### Running E2E tests locally
+
+1. Add the following to your `.env` file (in addition to the existing variables):
+```
+TEST_USERNAME=<ibm-verify-test-username>
+TEST_PASSWORD=<ibm-verify-test-password>
+```
+
+2. Build and start the app in Docker:
+```bash
+docker build -t auth-code-app . && \
+docker run -d --name auth-code-e2e -p 3000:3000 --env-file .env auth-code-app
+```
+
+3. Run the Playwright tests:
+```bash
+APP_URL=http://localhost:3000 TEST_USERNAME=<username> TEST_PASSWORD=<password> npm run test:e2e
+```
+
+4. Cleanup:
+```bash
+docker rm -f auth-code-e2e
+```
+
+On failure (locally), an HTML report is generated — open it with `npx playwright show-report`.
+
 ## Troubleshooting
 - CLI displaying `npm ERR! code E401` when trying to run `npm install`. Delete the package-lock.json file and run `npm install` again.
 
