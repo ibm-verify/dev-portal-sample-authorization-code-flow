@@ -38,6 +38,7 @@ jobs:
             -e REDIRECT_URI="http://localhost:3000/callback" \
             -e RESPONSE_TYPE="code" \
             -e SCOPE="openid" \
+            -e SESSION_SECRET="${{ secrets.SESSION_SECRET }}" \
             auth-code-app
 
       - name: Wait for app to be ready
@@ -100,6 +101,7 @@ jobs:
             -e REDIRECT_URI="http://localhost:3000/callback" \
             -e RESPONSE_TYPE="code" \
             -e SCOPE="openid" \
+            -e SESSION_SECRET="${{ secrets.SESSION_SECRET }}" \
             auth-code-app
 
       - name: Wait for app to be ready

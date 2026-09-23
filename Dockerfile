@@ -19,7 +19,7 @@ COPY . .
 FROM registry.access.redhat.com/ubi9/nodejs-20-minimal:1 AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 
 # UBI images already run as a non-root user (uid 1001) by default.
 USER 1001
