@@ -65,7 +65,7 @@ test("Authorization Code Flow — full round-trip", async ({ page }) => {
 
   // 5. "successfully authenticated" confirmation text
   await expect(
-    page.getByText(/successfully authenticated with IBM Security Verify/i)
+    page.getByText(/successfully authenticated with IBM Verify/i)
   ).toBeVisible();
 
   // 6. Welcome heading includes the user's display name

@@ -4,7 +4,7 @@ defaults:
   jiraAutoCloseTransitionName: "Done"
   jiraFields:
     labels:
-    - "dev-portal-sample-authorization-code-flow"
+    - "verify-devportal-authcodeflow-js"
     - "security-scanning"
     - "dev-portal-sample-app"
     components:
@@ -15,6 +15,6 @@ squads:
   sourceRepositories:
   - name: Sample code for authorization code flow
     sourceRepos: 
-    - name: github.com/ibm-security-verify/dev-portal-sample-authorization-code-flow
+    - name: github.com/ibm-verify/verify-devportal-authcodeflow-js
       properties:
       - repository_token_name: github-com-token
